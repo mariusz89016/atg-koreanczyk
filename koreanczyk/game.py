@@ -164,7 +164,8 @@ def validate_moves(moves_from_player, results, actual_player, player_structs):
                 if not same_place(place1, place2):
                     return False
 
-    return True
+        return True
+    return False
 
 
 def _knock_counter_group(other_counter_group, player, player_structs):
