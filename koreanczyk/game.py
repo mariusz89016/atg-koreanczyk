@@ -75,11 +75,11 @@ def game(players):
             continue
 
         if actual_player == 0:
-            moves_from_player = players[0].moves(actual_player, results)
-            players[1].moves(actual_player, results)
+            moves_from_player = players[0].moves(actual_player, copy.deepcopy(results))
+            players[1].moves(actual_player, copy.deepcopy(results))
         else:
-            players[0].moves(actual_player, results)
-            moves_from_player = players[1].moves(actual_player, results)
+            players[0].moves(actual_player, copy.deepcopy(results))
+            moves_from_player = players[1].moves(actual_player, copy.deepcopy(results))
 
         are_valid_moves = validate_moves(moves_from_player, results, actual_player, player_structs)
         if not are_valid_moves:
@@ -143,7 +143,7 @@ def validate_moves(moves_from_player, results, actual_player, player_structs):
     moves = filter(lambda x: isinstance(x, Move), moves_from_player)  # get only Move commands
     # validating groups
     groups = map(lambda x: x.counter_group_id, moves)
-    valid_groups = player_structs[0].get_counter_groups()
+    valid_groups = player_structs[actual_player].get_counter_groups()
     validated_groups = all(g in valid_groups for g in groups)
 
     # validating moves
